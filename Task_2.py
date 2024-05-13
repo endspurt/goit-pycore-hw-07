@@ -7,53 +7,60 @@ class Record:
         self.birthday = None
 
     def add_phone(self, phone):
-        self.phones.append(phone)
+        if phone not in self.phones:
+            self.phones.append(phone)
 
-    def add_birthday(self, birthday):
-        if isinstance(birthday, datetime.datetime):
-            self.birthday = birthday
-        else:
-            raise ValueError("Invalid type for birthday")
+    def set_birthday(self, birthday):
+        self.birthday = birthday
 
 class AddressBook:
     def __init__(self):
-        self.records = []
+        self.records = {}
 
     def add_record(self, record):
-        self.records.append(record)
+        self.records[record.name] = record
 
     def find(self, name):
-        for record in self.records:
-            if record.name == name:
-                return record
-        return None
+        return self.records.get(name)
 
     def get_upcoming_birthdays(self):
-        today = datetime.datetime.now()
-        next_week = today + datetime.timedelta(days=7)
-        upcoming = []
-        for record in self.records:
-            if record.birthday and today <= record.birthday < next_week:
-                upcoming.append(record.name)
-        return upcoming
+        today = datetime.date.today()
+        upcoming_birthdays = []
+        for record in self.records.values():
+            if record.birthday and today <= record.birthday <= today + datetime.timedelta(days=7):
+                upcoming_birthdays.append(record.name)
+        return upcoming_birthdays
 
-def parse_input(user_input):
-    parts = user_input.split()
-    command = parts[0]
+def parse_input(input_string):
+    parts = input_string.strip().split()
+    command = parts[0].lower()
     args = parts[1:]
     return command, args
 
 def add_contact(args, book):
+    if len(args) < 2:
+        return "Error: Missing arguments for add. Usage: add [name] [phone]"
     name, phone = args[0], args[1]
     record = book.find(name)
     if not record:
         record = Record(name)
         book.add_record(record)
-        message = "Contact added."
-    else:
-        message = "Contact updated."
     record.add_phone(phone)
-    return message
+    return f"Contact {name} added or updated with phone {phone}."
+
+def add_birthday(args, book):
+    if len(args) < 2:
+        return "Error: Missing arguments for add-birthday. Usage: add-birthday [name] [DD.MM.YYYY]"
+    name, date_str = args[0], args[1]
+    try:
+        birthday = datetime.datetime.strptime(date_str, "%d.%m.%Y").date()
+    except ValueError:
+        return "Invalid date format. Use DD.MM.YYYY"
+    record = book.find(name)
+    if not record:
+        return f"No contact found with name {name}."
+    record.set_birthday(birthday)
+    return f"Birthday set for {name} on {birthday.strftime('%d.%m.%Y')}."
 
 def main():
     book = AddressBook()
@@ -65,11 +72,27 @@ def main():
         if command in ["close", "exit"]:
             print("Good bye!")
             break
+        elif command == "hello":
+            print("Hello! How can I help you?")
         elif command == "add":
             print(add_contact(args, book))
+        elif command == "add-birthday":
+            print(add_birthday(args, book))
         elif command == "all":
-            for record in book.records:
-                print(f"Name: {record.name}, Phones: {', '.join(record.phones)}")
-        # Weitere Befehle hier implementieren nach Bedarf
+            for record in book.records.values():
+                phones = ', '.join(record.phones)
+                print(f"Name: {record.name}, Phones: {phones}")
+        elif command == "birthdays":
+            upcoming = book.get_upcoming_birthdays()
+            if upcoming:
+                print("Upcoming birthdays:")
+                for name in upcoming:
+                    print(name)
+            else:
+                print("No birthdays in the next week.")
+        else:
+            print("Invalid command.")
 
-# Kommentare in Englisch für den gesamten Code
+if __name__ == "__main__":
+    main()
+

@@ -1,0 +1,44 @@
+Aufgabe 1
+
+Als erstes fügen wir zusätzliche Funktionalitäten zu den Klassen aus der vorherigen Hausaufgabe hinzu:
+
+Füge das Feld birthday für den Geburtstag in die Klasse Record hinzu. Dieses Feld sollte vom Typ Birthday sein. Das Feld ist nicht verpflichtend, darf aber nur einmal vorkommen.
+
+python
+Copy code
+class Birthday(Field):
+    def __init__(self, value):
+        try:
+            # Fügen Sie die Überprüfung der Datenkorrektheit hinzu
+            # und konvertieren Sie den String in ein datetime-Objekt
+        except ValueError:
+            raise ValueError("Invalid date format. Use DD.MM.YYYY")
+python
+Copy code
+class Record:
+    def __init__(self, name):
+        self.name = Name(name)
+        self.phones = []
+        self.birthday = None
+Füge die Funktionalität zur Arbeit mit Birthday in der Klasse Record hinzu, insbesondere eine Funktion add_birthday, die den Geburtstag zum Kontakt hinzufügt.
+Füge Funktionalität hinzu, um die Korrektheit der angegebenen Werte für die Felder Phone, Birthday zu überprüfen.
+Füge die Funktion get_upcoming_birthdays von unserer vierten Hausaufgabe, Woche 3, hinzu und passe sie an die Klasse AddressBook an, die eine Liste von Benutzern aus dem Adressbuch zurückgibt, die in der nächsten Woche Geburtstag haben.
+
+Jetzt soll dein Bot speziell mit der Funktionalität der Klasse AddressBook arbeiten. Das bedeutet, dass wir anstelle des Wörterbuchs contacts book = AddressBook() verwenden.
+
+Birthday Klasse:
+
+Die Birthday-Klasse wird definiert mit einer __init__-Methode, die ein Geburtsdatum als String im Format DD.MM.YYYY erwartet.
+Der String wird zu einem datetime-Objekt konvertiert. Falls das Format nicht stimmt, wird eine ValueError-Ausnahme geworfen.
+Record Klasse:
+
+In der Record-Klasse wird jeder Kontakt repräsentiert. Ein Kontakt hat einen Namen, eine Liste von Telefonnummern und optional ein Geburtsdatum.
+Die Methode add_birthday erlaubt es, ein Birthday-Objekt dem Kontakt hinzuzufügen, wenn das übergebene Objekt vom Typ Birthday ist.
+AddressBook Klasse:
+
+Diese Klasse verwaltet alle Kontakte (Record-Objekte) in einer Liste.
+Die Methode add_record fügt einen neuen Kontakt hinzu.
+get_upcoming_birthdays prüft, welche Kontakte in der nächsten Woche Geburtstag haben und gibt deren Namen zurück.
+Erzeugen einer Instanz von AddressBook:
+
+Zum Schluss wird eine Instanz von AddressBook erstellt, um mit der Funktionalität arbeiten zu können.

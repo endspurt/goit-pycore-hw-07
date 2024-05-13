@@ -1,0 +1,46 @@
+PS C:\Users\shuri\Python_GoIT\goit-pycore-hw-07> python .\Task_2.py
+Welcome to the assistant bot!
+Enter a command: add John 1234455
+Contact added.
+Enter a command: all
+John: 1234455
+Enter a command: exit
+Good bye!
+
+Stellen Sie sicher, dass Ihre main() Funktion aktiviert ist und auf Benutzereingaben richtig reagiert. 
+Überprüfen Sie auch, dass alle erforderlichen Funktionen implementiert und Fehlerfrei sind.
+
+Aufgabe 2
+
+Um neue Funktionalitäten zu implementieren, fügen Sie auch Handler-Funktionen mit den folgenden Befehlen hinzu:
+
+add-birthday - Fügt einem Kontakt einen Geburtstag im Format DD.MM.YYYY hinzu.
+show-birthday - Zeigt den Geburtstag eines Kontakts an.
+birthdays - Gibt eine Liste von Benutzern zurück, die in der nächsten Woche Geburtstag haben.
+Zusätzlich sollte der Bot den folgenden Befehlssatz unterstützen:
+
+add [name] [telefon]: Fügt einen neuen Kontakt mit Namen und Telefonnummer hinzu oder fügt eine Telefonnummer zu einem vorhandenen Kontakt hinzu.
+change [name] [alter Telefon] [neuer Telefon]: Ändert die Telefonnummer eines angegebenen Kontakts.
+phone [name]: Zeigt die Telefonnummern eines angegebenen Kontakts an.
+all: Zeigt alle Kontakte im Adressbuch an.
+add-birthday [name] [Geburtsdatum]: Fügt einem angegebenen Kontakt ein Geburtsdatum hinzu.
+show-birthday [name]: Zeigt das Geburtsdatum eines angegebenen Kontakts an.
+birthdays: Zeigt die Geburtstage, die innerhalb der nächsten Woche stattfinden.
+hello: Empfängt eine Begrüßung vom Bot.
+close oder exit: Beendet das Programm.
+Ich werde jetzt den Code für diese Funktionalitäten entwickeln und erklären, wie er funktioniert. Hierbei werden wir auf die Kommandozeileninteraktion des Bots fokussieren.
+
+Klassendefinitionen:
+
+Record: Stellt einen einzelnen Kontakt dar. Speichert Name, Telefonnummern und optional ein Geburtsdatum.
+AddressBook: Verwaltet alle Kontakte in einem Dictionary und bietet Methoden zum Hinzufügen, Suchen und Auflisten von Kontakten sowie das Ausgeben bevorstehender Geburtstage.
+Funktionen:
+
+parse_input(): Zerlegt Benutzereingaben in Befehle und Argumente.
+add_contact(): Fügt einen Kontakt hinzu oder aktualisiert ihn.
+add_birthday(): Setzt das Geburtsdatum eines Kontakts.
+Hauptfunktion main():
+
+Startet eine Schleife, die Benutzere
+
+
